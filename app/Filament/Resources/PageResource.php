@@ -6,6 +6,7 @@ use App\Filament\Resources\PageResource\Pages;
 use App\Filament\Resources\PageResource\RelationManagers;
 use App\Models\Page;
 use Filament\Forms;
+use App\Models\Menu;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -21,7 +22,14 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    public static function getNavigationLabel(): string
+    {
+        return Menu::where('resource', static::class)->value('label') ?? __('filament-shield::filament-shield.nav.role.label');
+    }
+    
+    public static function getNavigationGroup(): ?string {
+        return Menu::where('resource', static::class)->value('group');
+    }
 
     public static function form(Form $form): Form
     {

@@ -33,18 +33,22 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
-   public function share(Request $request): array
+    public function share(Request $request): array
     {
         $navSetting = \App\Models\Setting::where('key', 'navigation')->first();
         
-        // Kita bongkar isinya. Jika ada 'data', kita ambil isinya saja.
-        $navData = $navSetting ? $navSetting->value : [];
-        $actualNav = isset($navData['data']) ? $navData['data'] : $navData;
+        // Ambil value mentah
+        $value = $navSetting ? $navSetting->value : null;
+
+        // Paksa jadi array jika datanya masih berbentuk string JSON
+        if (is_string($value)) {
+            $value = json_decode($value, true);
+        }
 
         return array_merge(parent::share($request), [
             'navigation' => [
-                'header' => $actualNav['header'] ?? [], // Pastikan selalu ada array kosong
-                'footer' => $actualNav['footer'] ?? [],
+                'header' => $value['header'] ?? [],
+                'footer_columns' => $value['footer_columns'] ?? [],
             ],
         ]);
     }

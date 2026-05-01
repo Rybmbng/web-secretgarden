@@ -17,7 +17,7 @@ export default defineConfig({
             },
         }),
     ],
-    server: { // Tambahkan blok server ini, Bang!
+    server: { 
         host: '0.0.0.0',
         hmr: {
             host: '192.168.2.242', // Sesuaikan dengan IP server Abang

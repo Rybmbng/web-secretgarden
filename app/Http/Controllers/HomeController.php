@@ -14,10 +14,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Ambil semua data page, urutkan dari yang paling lama/baru atau custom
         $pages = Page::orderBy('created_at', 'asc')->get();
 
-        return Inertia::render('Index', [
+        return Inertia::render('Home/Index', [
             'pages' => $pages 
         ]);
     }

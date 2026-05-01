@@ -26,7 +26,7 @@ class RoleResource extends Resource implements HasShieldPermissions
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    /** --- LOGIKA NAVIGASI DINAMIS --- **/
+
 
     public static function getNavigationLabel(): string
     {
